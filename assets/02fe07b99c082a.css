@@ -1,0 +1,80 @@
+
+html body header.elementor-location-header {
+  min-height:var(--tbb-site-header-height,0px) !important;
+  margin-bottom:0 !important;
+}
+html body header.elementor-location-header > .elementor-element-de18191 {
+  margin-bottom:0 !important;
+}
+
+
+html body[class] .tbb15,
+html body[class] .tbb-single2 {
+  padding-top:0 !important;
+}
+
+
+html body.woocommerce-account .elementor-541 .elementor-element-4c83bb53 > .elementor-widget-container {
+  margin-top:0 !important;
+}
+
+@media (max-width:1058px) {
+  html body header.elementor-location-header .elementor-element-de18191 > .e-con-inner {
+    gap:12px !important;
+  }
+  html body header.elementor-location-header .elementor-element-80a076d {
+    flex:0 0 auto !important;
+    order:1 !important;
+  }
+  html body header.elementor-location-header .elementor-element-b0247e7 {
+    display:flex !important;
+    flex:1 1 auto !important;
+    order:2 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:0 !important;
+  }
+  html body header.elementor-location-header .elementor-element-b0247e7 img {
+    width:clamp(90px,26vw,156px) !important;
+    max-width:100% !important;
+    height:auto !important;
+  }
+  html body header.elementor-location-header .elementor-element-b0247e7 a {
+    display:flex !important;
+    align-items:center;
+    min-height:44px;
+  }
+  html body header.elementor-location-header .elementor-element-00dd600 {
+    flex:0 0 auto !important;
+    order:3 !important;
+    margin-left:0 !important;
+  }
+}
+
+@media (min-width:621px) and (max-width:1180px) {
+  html body[class] .tbbg2__header { padding-top:56px !important; }
+}
+
+@media (min-width:621px) and (max-width:980px) {
+
+  html body .tbb-single2 .tbb-single2__hero-img img {
+    object-fit:contain !important;
+  }
+}
+
+@media (max-width:767px) {
+  html body header.elementor-location-header .elementor-element-de18191 > .e-con-inner {
+    gap:8px !important;
+  }
+  html body.woocommerce-account .elementor-541 .elementor-element-568c3961 > .elementor-container {
+    padding-top:48px !important;
+  }
+}
+
+@media (max-width:360px) {
+  html body header.elementor-location-header .elementor-element-de18191 > .e-con-inner {
+    padding-right:10px !important;
+    padding-left:10px !important;
+    gap:6px !important;
+  }
+}

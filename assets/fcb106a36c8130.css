@@ -1,0 +1,8 @@
+
+.tbb-bundle-page .questions details.faq-sliding{overflow:hidden;overflow:clip}
+.tbb-bundle-page .questions summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none}
+.tbb-bundle-page .questions summary::-webkit-details-marker{display:none}
+.tbb-bundle-page .questions summary::after{content:'';flex:none;width:8px;height:8px;margin-right:4px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg);transition:transform 220ms cubic-bezier(.16,1,.3,1)}
+.tbb-bundle-page .questions details[open]:not([data-expanded="false"])>summary::after{transform:rotate(225deg)}
+@media(prefers-reduced-motion:reduce){
+.tbb-bundle-page .questions summary::after{transition:none}}
