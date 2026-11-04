@@ -15,6 +15,8 @@ document.querySelectorAll('[data-tbb-product-tabs]').forEach(group=>{
 document.querySelectorAll('.tbbg2__filter').forEach(button=>button.addEventListener('click',()=>{
   const filter=button.dataset.filter;
   document.querySelectorAll('.tbbg2__filter').forEach(b=>{b.classList.toggle('is-active',b===button);b.setAttribute('aria-pressed',String(b===button));});
-  document.querySelectorAll('.tbbg2__card').forEach(card=>{card.hidden=filter!=='all'&&!((card.dataset.series||'')+' '+(card.dataset.tags||'')+' '+(card.dataset.category||'')).split(' ').includes(filter);});
+  document.querySelectorAll('.tbbg2__card').forEach(card=>{card.hidden=filter!=='all'&&!((card.dataset.series||'')+' '+(card.dataset.tags||'')+' '+(card.dataset.category||'')).split(/[ ,]+/).includes(filter);});
+  document.getElementById('tbbg2-count').textContent=document.querySelectorAll('.tbbg2__card:not([hidden])').length;
+  document.getElementById('tbbg2-sort').textContent=filter==='all'?'sorted by series':button.textContent.replace(/ ·.*$/,'').trim();
 }));
 document.querySelectorAll('.review-header nav a').forEach(a=>{if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');});
