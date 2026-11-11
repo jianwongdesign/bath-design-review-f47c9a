@@ -1,10 +1,13 @@
-import {bundles,products,createState,count,complete,changeQuantity,changeBundle} from './model.js';
-window.TBB_BUNDLE_CART={key:new URLSearchParams(location.search).get('bundle')||'essential',assets:'assets/',fx:{currency:'SGD',rate:1}};
-if(!bundles[window.TBB_BUNDLE_CART.key])window.TBB_BUNDLE_CART.key='essential';
+import {bundles,products,createState,count,complete,changeQuantity,changeBundle} from './model.js?v=20261112';
+window.TBB_BUNDLE_CART={"key": "essential", "assets": "assets/", "fx": {"currency": "SGD", "rate": 1}, "singlePrices": {"90": 35, "91": 35, "92": 35, "93": 35, "3601": 27, "3594": 27, "3593": 27, "3592": 27}};
+window.TBB_BUNDLE_CART.key=new URLSearchParams(location.search).get("bundle")||"essential";
+if(!bundles[window.TBB_BUNDLE_CART.key])window.TBB_BUNDLE_CART.key="essential";
 const state=createState(window.TBB_BUNDLE_CART.key);
 document.querySelector(`[name="bundle"][value="${state.key}"]`).checked=true;
 const $=id=>document.getElementById(id);
 const fx=window.TBB_BUNDLE_CART.fx || {currency:'SGD',rate:1};
+const singlePrices=window.TBB_BUNDLE_CART.singlePrices || {};
+const singleRange=()=>{const prices=Object.values(singlePrices).filter(p=>p>0);return prices.length?`${money(Math.min(...prices))} – ${money(Math.max(...prices))}`:'Choose a bottle';};
 const money=base=>`${fx.currency} ${(Math.round((base*fx.rate+Number.EPSILON)*100)/100).toFixed(2)}`;
 const minus='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>';
 const plus='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>';
@@ -51,30 +54,37 @@ function showPhoto(p){
   document.querySelectorAll('.thumbnail').forEach(t=>t.setAttribute('aria-pressed',String(Number(t.dataset.id)===viewed)));
 }
 function render(message){
-  const bundle=bundles[state.key],ready=complete(state);
-  $('offer-price').textContent=$('subtotal').textContent=$('sticky-price').textContent=money(bundle.price);
-  $('bundle-inclusions').textContent=`${bundle.premium} Premium + ${bundle.pop} complimentary Pop`;
+  const bundle=bundles[state.key],ready=complete(state),single=state.key==='single';
+  document.querySelector('.tbb-bundle-page').classList.toggle('is-single',single);
+  $('summary-title').textContent=single?'Your bottle, your way.':'Your bundle, your way.';
+  const selected=products.filter(p=>state.quantities[p.id]);
+  const total=count(state,'premium')+count(state,'pop');
+  const priceLabel=single?(selected.length?money(singlePrices[selected[0].id]):singleRange()):money(bundle.price);
+  $('single-option-price').textContent=singleRange();
+  $('pop-hint').textContent=single?'350ml each. Choose one bottle from either series.':'350ml each. Your complimentary bottles are included.';
+  $('review').textContent='Preview your selection';
+  $('offer-price').textContent=$('subtotal').textContent=$('sticky-price').textContent=priceLabel;
+  $('bundle-inclusions').textContent=single?'1 bottle · Premium Series or Pop Series':`${bundle.premium} Premium Series + ${bundle.pop} complimentary Pop Series`;
   $('sticky-name').textContent=bundle.name;
   const freeDelivery=state.key==='stockup';
-  $('delivery-copy').textContent=freeDelivery?`Free Singapore delivery included. Malaysia delivery: ${money(15)}.`:`Delivery: ${money(10)} within Singapore · ${money(15)} to Malaysia.`;
-  $('summary-delivery').textContent=freeDelivery?`Free Singapore delivery · ${money(15)} to Malaysia.`:`Delivery: ${money(10)} Singapore · ${money(15)} Malaysia.`;
-  $('sticky-delivery').textContent=freeDelivery?'Free Singapore delivery':'+ delivery';
-  $('sticky-progress').textContent=`${count(state,'premium')+count(state,'pop')} / ${bundle.premium+bundle.pop} bottles selected`;
-  $('sticky-review').innerHTML=(ready?'Preview your bundle':'Choose your scents')+' '+arrow;
+  $('delivery-copy').textContent=freeDelivery?`Free Singapore delivery included. Overseas Shipment ${money(16)}.`:`Local Delivery ${money(10)} · Overseas Shipment ${money(16)}`;
+  $('summary-delivery').textContent=freeDelivery?`Free Singapore delivery · Overseas Shipment ${money(16)}`:`Local Delivery ${money(10)} · Overseas Shipment ${money(16)}`;
+  $('sticky-delivery').textContent=freeDelivery?'Free Singapore delivery':'+ delivery at checkout';
+  $('sticky-progress').textContent=`${count(state,'premium')+count(state,'pop')} / ${single?1:bundle.premium+bundle.pop} bottles selected`;
+  $('sticky-review').innerHTML=(ready?'Preview your selection':'Choose your scents')+' '+arrow;
   for(const series of ['premium','pop']){
     const n=count(state,series),label=$(`${series}-count`);
-    label.textContent=`${n} of ${bundle[series]} selected`;label.classList.toggle('complete',n===bundle[series]);
+    label.textContent=single?`${n} selected`:`${n} of ${bundle[series]} selected`;label.classList.toggle('complete',single?ready:n===bundle[series]);
     for(const p of products.filter(p=>p.series===series)){
       const card=$(`scent-${p.id}`),qty=state.quantities[p.id]||0;
       card.classList.toggle('selected',qty>0);card.querySelector('output').value=String(qty);
       card.querySelector('[data-delta="-1"]').disabled=qty===0;
-      card.querySelector('[data-delta="1"]').disabled=n>=bundle[series];
+      card.querySelector('[data-delta="1"]').disabled=single?total>=1:n>=bundle[series];
     }
   }
-  const selected=products.filter(p=>state.quantities[p.id]);
-  $('selected-items').innerHTML=selected.length?selected.map(p=>`<div class="selected-row"><img src="${window.TBB_BUNDLE_CART.assets}${p.image}" width="38" height="48" alt=""><div><strong>${state.quantities[p.id]} × ${p.name}</strong><span>${p.series==='premium'?'Premium':'Pop'} · ${p.ml}ml</span></div><b>${p.series==='pop'?'Complimentary':'Included'}</b></div>`).join(''):'<p class="empty">Your chosen fragrances will appear here.</p>';
+  $('selected-items').innerHTML=selected.length?selected.map(p=>`<div class="selected-row"><img src="${window.TBB_BUNDLE_CART.assets}${p.image}" width="38" height="48" alt=""><div><strong>${state.quantities[p.id]} × ${p.name}</strong><span>${p.series==='premium'?'Premium':'Pop'} · ${p.ml}ml</span></div><b>${single?money(singlePrices[p.id]):(p.series==='pop'?'Complimentary':'Included')}</b></div>`).join(''):'<p class="empty">Your chosen fragrances will appear here.</p>';
   const missing=['premium','pop'].filter(s=>count(state,s)<bundle[s]).map(s=>`${bundle[s]-count(state,s)} ${s==='premium'?'Premium':'Pop'}`);
-  $('feedback').textContent=message || (ready?'All bottles selected. Review your bundle below.':`Still to choose: ${missing.join(' and ')}. Pick your fragrances to complete the bundle.`);
+  $('feedback').textContent=message || (single?(ready?'Your bottle is selected. Preview your choice below.':'Choose one bottle from the Premium Series or Pop Series.'):(ready?'All bottles selected. Preview your bundle below.':`Still to choose: ${missing.join(' and ')}. Pick your fragrances to complete the bundle.`));
 }
 document.querySelectorAll('[name="bundle"]').forEach(radio=>radio.addEventListener('change',()=>{
   const before=count(state,'premium')+count(state,'pop');
@@ -84,14 +94,13 @@ document.querySelectorAll('[name="bundle"]').forEach(radio=>radio.addEventListen
 $('reset').addEventListener('click',()=>{state.quantities={};$('review-result').hidden=true;render('Your choices have been reset. Select your Premium and free Pop fragrances.');});
 function review(){
   if(!complete(state)){
-    const missing=['premium','pop'].find(s=>count(state,s)<bundles[state.key][s]);
+    const missing=state.key==='single'?'premium':['premium','pop'].find(s=>count(state,s)<bundles[state.key][s]);
     render();const target=$(`${missing}-options`);target.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     target.querySelector('[data-delta="1"]:not(:disabled)').focus({preventScroll:true});return;
   }
-  const result=$('review-result');
-  result.hidden=false; result.setAttribute('role','status');
-  result.textContent='Your bundle selection is complete. This is a design preview only; no order has been created.';
-  result.scrollIntoView({block:'nearest',behavior:'smooth'});
+  const result=$('review-result');result.hidden=false;result.setAttribute('role','status');
+  result.textContent=`${bundles[state.key].name}: ${products.filter(p=>state.quantities[p.id]).map(p=>`${state.quantities[p.id]} × ${p.name}`).join(', ')}. Design preview only — no order has been created.`;
+  result.scrollIntoView({block:'nearest',behavior:photoMotion.matches?'instant':'smooth'});
 }
 $('review').addEventListener('click',review);$('sticky-review').addEventListener('click',review);
 showPhoto(products[0]);render();
