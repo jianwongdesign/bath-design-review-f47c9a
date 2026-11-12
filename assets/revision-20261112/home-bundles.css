@@ -4,7 +4,7 @@
 .tbb15 .tbb-bundle-feature__heading h2{font-size:clamp(36px,4.1vw,58px);line-height:1.12;letter-spacing:-.045em;font-weight:400;margin:20px 0 0;text-transform:none}
 .tbb15 .tbb-bundle-feature__heading h2 strong{font-weight:500;color:#a0523e}
 .tbb15 .tbb-bundle-feature__heading>p{max-width:350px;font-size:14px;line-height:1.8;color:#625e56;margin:0 0 4px}
-.tbb-bundle-feature__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.tbb-bundle-feature__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
 .tbb-bundle-card{min-width:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid #d9d0c1;border-radius:14px;background:#f8f4eb}
 .tbb-bundle-card--stockup{background:#f2e5dc;border-color:#dbc8bb}
 .tbb15 .tbb-bundle-card__photos{display:block;flex:none;width:100%;height:auto;aspect-ratio:3/2;overflow:hidden;background:#f5f3ee}
@@ -19,9 +19,15 @@
 .tbb-bundle-card__buy{display:flex;flex-direction:column;align-items:stretch;justify-content:normal;gap:0;margin-top:auto}
 .tbb15 .tbb-bundle-card__price{margin:0;font-size:38px;font-weight:500;letter-spacing:-.055em;line-height:1.15;white-space:nowrap;color:#262820}
 .tbb15 .tbb-bundle-card__price>span{font-size:11px;letter-spacing:0;font-weight:400;margin-right:5px;color:#62594e}
-.tbb15 .tbb-bundle-card__price-note,.tbb15 .tbb-bundle-card__saving{display:flex;align-items:center;flex-wrap:wrap;gap:5px 10px;min-height:22px;margin:8px 0 18px;padding:0;border:0;border-radius:0;background:none;font-size:11px;line-height:1.6;color:#6a6055}
-.tbb15 .tbb-bundle-card__saving strong{font-size:12px;font-weight:600;color:#8f4b38;white-space:nowrap}
-.tbb15 .tbb-bundle-card__saving>span{padding-left:10px;border-left:1px solid #c9b9a9;white-space:nowrap}
+.tbb-bundle-card__meta{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;margin-bottom:12px}
+.tbb15 .tbb-bundle-card__meta .tbb-bundle-card__count{margin:0}
+.tbb15 .tbb-bundle-card__discount{display:flex;flex-direction:column-reverse;align-items:center;gap:1px;margin:0;padding:7px 13px;border:1px solid #e0ac95;border-radius:8px;background:#ffd3bd;color:#6d3524;line-height:1.3;white-space:nowrap}
+.tbb15 .tbb-bundle-card__discount>span{font-size:16px;font-weight:700;letter-spacing:-.02em}
+.tbb15 .tbb-bundle-card__discount strong{font-size:11px;font-weight:500}
+.tbb-bundle-card__pricing{display:flex;align-items:flex-end;gap:20px;min-height:58px;margin-bottom:18px}
+.tbb15 .tbb-bundle-card__series-price{display:block;margin-bottom:5px;color:#6a6055;font-size:11px;line-height:1.5}
+.tbb15 .tbb-bundle-card--single .tbb-bundle-card__price{font-size:30px}
+.tbb15 .tbb-bundle-feature__swipe{display:none}
 .tbb15 .tbb-bundle-card a.tbb-bundle-card__cta{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:50px;padding:14px 20px;border-radius:999px;border:1px solid #ff9b89;background:#ff9b89!important;background-image:none!important;color:#20231e!important;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;line-height:1.4;transition:background .2s, border-color .2s}
 .tbb15 .tbb-bundle-card a.tbb-bundle-card__cta span{font-size:20px;line-height:1}
 .tbb15 .tbb-bundle-card__delivery{display:flex;flex-direction:column;gap:3px;margin:20px 0 0;padding-top:15px;border-top:1px solid #d7cdc0;font-size:11px;line-height:1.6;color:#776a5d}
@@ -39,15 +45,22 @@
  .tbb15 .tbb-bundle-card__description{margin-bottom:20px}
 }
 @media(max-width:900px){.tbb15 .tbb-bundle-feature{padding:64px 0 52px}.tbb-bundle-feature__heading{gap:28px;align-items:flex-start}.tbb15 .tbb-bundle-feature__heading>p{max-width:270px}.tbb-bundle-card__body{padding:24px 20px}}
-/* Phone: single-column cards with the same content order and compact controls. */
+/* Phone: native horizontal swipe with snapping and a visible next-card edge. */
 @media(max-width:620px){
  .tbb15 .tbb-bundle-feature{padding:48px 0 36px}
  .tbb-bundle-feature__heading{display:block;margin-bottom:28px}
  .tbb15 .tbb-bundle-feature__heading h2{font-size:38px}
  .tbb15 .tbb-bundle-feature__heading>p{margin:18px 0 0;max-width:360px;font-size:13px}
- .tbb-bundle-feature__grid{grid-template-columns:minmax(0,1fr);gap:24px}
+ .tbb-bundle-feature__grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc(100% - 28px);gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:#b69c88 #e8e0d3}
+ .tbb-bundle-card{scroll-snap-align:start;scroll-snap-stop:normal}
+ .tbb15 .tbb-bundle-feature__swipe{display:block;margin:0 0 12px;color:#75685b;font-size:11px;letter-spacing:.01em}
+ .tbb-bundle-card__pricing{gap:12px}
+ .tbb15 .tbb-bundle-card--single .tbb-bundle-card__price{font-size:27px}
+ .tbb15 .tbb-bundle-feature__grid:focus-visible{outline:2px solid #8f4b38;outline-offset:4px}
  .tbb15 .tbb-bundle-card h3{font-size:27px}
  .tbb15 .tbb-bundle-card__price{font-size:36px}
  .tbb15 .tbb-bundle-feature__foot{text-align:left}
 }
 @media(prefers-reduced-motion:reduce){.tbb15 .tbb-bundle-card__photos img,.tbb15 .tbb-bundle-card a.tbb-bundle-card__cta{transition:none}}
+
+@media(prefers-reduced-motion:reduce){.tbb-bundle-feature__grid{scroll-behavior:auto}}
