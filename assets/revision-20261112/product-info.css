@@ -34,7 +34,7 @@ html body .tbb-single2.tbb-info-revision h1{font:400 clamp(32px,3.8vw,52px)/1.12
 }
 @media(max-width:360px){.tbb-info-revision .tbb-info-revision__details .tbb-info-materials .tbb-info-materials__list{gap:10px!important}}
 
-.tbbg2__header a.tbb-info-bundle-link,
+.tbbg2 .tbbg2__header a.tbb-info-bundle-link,
 .tbb-info-revision a.tbb-info-bundle-link {
   display:inline-flex;
   position:relative;
@@ -46,12 +46,12 @@ html body .tbb-single2.tbb-info-revision h1{font:400 clamp(32px,3.8vw,52px)/1.12
   margin-top:16px;
   padding:10px 20px;
   border-radius:999px;
-  background:#264a3d;
-  color:#fff!important;
+  background:linear-gradient(135deg,#ff9180,#f7b6a6)!important;
+  color:#261b18!important;
   font:600 14px/1.4 'Poppins',Arial,sans-serif;
   text-decoration:none;
 }
-.tbbg2__header a.tbb-info-bundle-link:hover,
-.tbb-info-revision a.tbb-info-bundle-link:hover { background:#19362c; }
+.tbbg2 .tbbg2__header a.tbb-info-bundle-link:is(:hover,:focus-visible),
+.tbb-info-revision a.tbb-info-bundle-link:is(:hover,:focus-visible) { background:linear-gradient(135deg,#a8e0d0,#ff9180)!important; }
 a.tbb-info-bundle-link:focus-visible { outline:3px solid #a94d39; outline-offset:3px; }
 .tbb-info-bundle-link span { font:400 20px/1 Arial,sans-serif; }
