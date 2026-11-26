@@ -33,3 +33,25 @@ html body .tbb-single2.tbb-info-revision h1{font:400 clamp(32px,3.8vw,52px)/1.12
  .tbb-info-revision .tbb-info-materials__photo img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
 }
 @media(max-width:360px){.tbb-info-revision .tbb-info-revision__details .tbb-info-materials .tbb-info-materials__list{gap:10px!important}}
+
+.tbbg2__header a.tbb-info-bundle-link,
+.tbb-info-revision a.tbb-info-bundle-link {
+  display:inline-flex;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  min-height:44px;
+  box-sizing:border-box;
+  margin-top:16px;
+  padding:10px 20px;
+  border-radius:999px;
+  background:#264a3d;
+  color:#fff!important;
+  font:600 14px/1.4 'Poppins',Arial,sans-serif;
+  text-decoration:none;
+}
+.tbbg2__header a.tbb-info-bundle-link:hover,
+.tbb-info-revision a.tbb-info-bundle-link:hover { background:#19362c; }
+a.tbb-info-bundle-link:focus-visible { outline:3px solid #a94d39; outline-offset:3px; }
+.tbb-info-bundle-link span { font:400 20px/1 Arial,sans-serif; }
