@@ -286,9 +286,9 @@ body.tbb-bundle-live{padding-bottom:110px}
   row-gap:10px;
   align-content:start;
 }
-.tbb-bundle-page .scent-photo,
-.tbb-bundle-page .scent-photo:hover,
-.tbb-bundle-page .scent-photo:focus{
+.tbb-bundle-page .scent .scent-photo,
+.tbb-bundle-page .scent .scent-photo:hover,
+.tbb-bundle-page .scent .scent-photo:focus{
   align-self:start;
   background:transparent;
   box-shadow:0 1px 3px rgba(53,43,30,.09), 0 4px 10px rgba(53,43,30,.08);
