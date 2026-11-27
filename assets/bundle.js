@@ -1,7 +1,6 @@
-import {bundles,products,createState,count,complete,changeQuantity,changeBundle} from './model.js?v=20261125-quantities';
-window.TBB_BUNDLE_CART={"key": "essential", "assets": "assets/", "fx": {"currency": "SGD", "rate": 1}, "singlePrices": {"90": 35, "91": 35, "92": 35, "93": 35, "3601": 27, "3594": 27, "3593": 27, "3592": 27}};
-window.TBB_BUNDLE_CART.key=new URLSearchParams(location.search).get("bundle")||"essential";
-if(!bundles[window.TBB_BUNDLE_CART.key])window.TBB_BUNDLE_CART.key="essential";
+import {bundles,products,createState,count,complete,changeQuantity,changeBundle} from './model.js?v=20261127-default';
+window.TBB_BUNDLE_CART={"assets": "assets/", "fx": {"currency": "SGD", "rate": 1}, "singlePrices": {"90": 35, "91": 35, "92": 35, "93": 35, "3601": 27, "3594": 27, "3593": 27, "3592": 27}};
+window.TBB_BUNDLE_CART.key=new URLSearchParams(location.search).get("bundle");
 const state=createState(window.TBB_BUNDLE_CART.key);
 document.querySelector(`[name="bundle"][value="${state.key}"]`).checked=true;
 const $=id=>document.getElementById(id);

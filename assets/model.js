@@ -13,7 +13,7 @@ export const products = [
   { id:3593, benefit:'Daily Vitamin Cleansing & Moisturizing', name:'Reality', series:'pop', ml:350, notes:'Mandarin, Water Vetiver, Musk', image:'reality.jpeg' },
   { id:3592, benefit:'Daily Vitamin Cleansing & Moisturizing', name:'Malibu Lemonade', series:'pop', ml:350, notes:'Juicy Orange, Sheer Muguet, Creamy Vanilla', image:'malibu-lemonade.jpeg' }
 ];
-export function createState(key='essential'){ return { key:bundles[key]?key:'essential', quantities:{} }; }
+export function createState(key){ return { key:Object.hasOwn(bundles,key)?key:'stockup', quantities:{} }; }
 export function count(state,series){ return products.filter(p=>p.series===series).reduce((n,p)=>n+(state.quantities[p.id]||0),0); }
 export function complete(state){ if(state.key==='single')return count(state,'premium')+count(state,'pop')>0; return ['premium','pop'].every(series=>count(state,series)===bundles[state.key][series]); }
 export function changeQuantity(state,id,delta){
